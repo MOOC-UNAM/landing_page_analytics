@@ -77,7 +77,6 @@ Script principal
 coursera_base_url = "https://www.coursera.org/learn/"
 coursera_slugs = lista_columna(1)
 coursera_titulos = lista_columna(0)
-reviews = "/reviews"
 
 # TODO: Esta excepción está formada de manera extraña. Revisar una mejor manera de escribirla
 try:
@@ -93,10 +92,11 @@ except:
 
 temp = []
 
+# TODO: Escribir una condición para que el programa se ejecute solamente en los comentarios posteriores a la última recolección.
 for i in range(1, 6):
     estrellas = "&star={}".format(i)
     for slug, titulos in zip(coursera_slugs, coursera_titulos):
-        url_base = coursera_base_url + slug + reviews
+        url_base = coursera_base_url + slug + "/reviews"
         url_rango = url_base + "?page=1" + estrellas
         try:
             rango = get_range(url_rango)
@@ -104,7 +104,6 @@ for i in range(1, 6):
                 url_paginas = url_base + "?page=" + str(i + 1) + estrellas
                 sopa = get_sopa(url_paginas)
                 feedback_text = sopa.select("div.rc-ReviewsList.m-b-3")
-                # lista texto
                 for contenido_sopa in feedback_text:
                     texto_r = [texto.text for texto in contenido_sopa.select(
                         "div.reviewText")]
