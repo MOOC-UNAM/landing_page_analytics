@@ -2,7 +2,7 @@ from mooc_unam_spreadsheet import validador
 
 
 ID_HOJADECALCULO = '1dsW2kClGh3E73EhuybthLeTkIoFzscjAr_uXbbrZ1tA'
-RANGO = 'Descargas!A2:F104'
+RANGO = 'Descargas!A2:G104'
 
 
 def lista_columna(columna):
@@ -14,6 +14,7 @@ def lista_columna(columna):
     [3] Request date
     [4] Status
     [5] Size (KB)
+    [6] Enrollment
     '''
     lista = []
 

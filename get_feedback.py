@@ -78,17 +78,12 @@ coursera_base_url = "https://www.coursera.org/learn/"
 coursera_slugs = lista_columna(1)
 coursera_titulos = lista_columna(0)
 
-# TODO: Esta excepción está formada de manera extraña. Revisar una mejor manera de escribirla
-try:
-    with open("JSON_data/data.json", "r+") as file:
+with open("JSON_data/data.json", "r+") as file:
         try:
             data = json.load(file)
         except:
             data = []
             escribe_json(data)
-except:
-    data = []
-    escribe_json(data)
 
 temp = []
 
