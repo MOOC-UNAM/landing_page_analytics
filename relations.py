@@ -15,6 +15,7 @@ matplotlib.style.use('ggplot')
 
 coursera_base_url = "https://www.coursera.org/learn/"
 coursera_slugs = lista_columna(1)
+courses_enrollment = lista_columna(6)
 
 urls = []
 
@@ -26,7 +27,6 @@ print("Finalizada la construcción de urls")
 t = []
 x = []
 y = []
-
 
 for link in urls:
     t.append(LenTitulo.palabras(link))
@@ -51,8 +51,15 @@ dfs = pd.DataFrame({
     "Número de vistas": y
 })
 
-fig = px.scatter(df, x="Cantidad de caracteres", y="Número de vistas")
-figpal = px.scatter(dfs, x="Cantidad de palabras", y = "Número de vistas")
+df_enroll = pd.DataFrame({
+    "Cantidad de palabras": t,
+    "Cantidad de inscritos": courses_enrollment
+})
+
+
+fig = px.scatter(df, x="Cantidad de caracteres", y="Número de vistas", log_y=True)
+figpal = px.scatter(dfs, x="Cantidad de palabras", y = "Número de vistas", log_y=True)
+figenroll = px.scatter(df_enroll, x="Cantidad de palabras", y="Cantidad de inscritos", log_y=True)
 
 app = dash.Dash()
 
@@ -63,10 +70,16 @@ app.layout = html.Div(children=[
         Correlación entre cantidad de caracteres del título y vistas
     '''),
     dcc.Graph(figure=fig),
+
     html.Div(children='''
         Correlación entre cantidad de palabras del título y vistas
     '''),
-    dcc.Graph(figure=figpal)
+    dcc.Graph(figure=figpal),
+
+    html.Div(children='''
+    Correlación entre cantidad de palabras e inscripciones
+    '''),
+    dcc.Graph(figure=figenroll)
 
 ])
 

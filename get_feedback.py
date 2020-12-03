@@ -4,6 +4,7 @@ from get_sheet_content import lista_columna
 import itertools
 import math
 import json
+import os
 
 '''
 Obtiene el contenido de una página a través de requests y BeautifulSoup
@@ -55,7 +56,10 @@ Función para añadir datos a JSON
 
 def escribe_json(data, filename="JSON_data/data.json"):
     with open(filename, 'w') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+        try:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        except UnicodeDecodeError:
+            json.dump(data, f, indent=4, ensure_ascii=True)
 
 
 '''
@@ -78,14 +82,15 @@ coursera_base_url = "https://www.coursera.org/learn/"
 coursera_slugs = lista_columna(1)
 coursera_titulos = lista_columna(0)
 
-with open("JSON_data/data.json", "r+") as file:
-        try:
-            data = json.load(file)
-        except:
-            data = []
-            escribe_json(data)
+jsonfile = open("JSON_data/data.json", "w")
 
-temp = []
+with jsonfile as file:
+    try:
+        data = json.load(file)
+    except:
+        data = []
+        escribe_json(data)
+
 
 # TODO: Escribir una condición para que el programa se ejecute solamente en los comentarios posteriores a la última recolección.
 for i in range(1, 6):
@@ -105,7 +110,7 @@ for i in range(1, 6):
                     nombre_r = [
                         texto.text for texto in contenido_sopa.select("p.reviewerName")]
                     fecha_r = [texto.text for texto in contenido_sopa.select(
-                        "p.dateOfReview")]
+                        "div.dateOfReview")]
                     helpful = [texto.text for texto in contenido_sopa.select(
                         "div._xliqh9g.e2e-helpful-button-col > button > span > span:nth-child(2)")]
                     for t, n, f, h in zip(texto_r, nombre_r, fecha_r, helpful):
@@ -124,8 +129,7 @@ for i in range(1, 6):
                             }
 
                             data.append(JSON_f)
-                            print(
-                                "agregando datos del testimonio de {} del {}".format(n[3:], f))
+                            # print("agregando datos del testimonio de {} del {}".format(n[3:], f)) # En Windws salta un EncodingErrir
                         escribe_json(data)
                         print("escribiendo en JSON")
         except AttributeError:
