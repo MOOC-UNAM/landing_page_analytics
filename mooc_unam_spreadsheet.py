@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-SECRET_FILE = "/mnt/e/Proyectos/MOOC_UNAM/data_learning_analytics/credenciales/credentials.json"
+SECRET_FILE = "E:/Proyectos/MOOC_UNAM/data_learning_analytics/credenciales/credentials.json"
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 

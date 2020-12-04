@@ -30,7 +30,7 @@ df = pd.DataFrame(
 )
 
 print("Escribiendo el csv")
-df.to_csv('csv_data/titulos_descripciones.csv', index=False, header=True)
+df.to_csv('csv_data/contenido_lp.csv', index=False, header=True)
 
 print(df)
-print(pd.read_csv('csv_data/titulos_descripciones.csv'))
+print(pd.read_csv('csv_data/contenido_lp.csv'))

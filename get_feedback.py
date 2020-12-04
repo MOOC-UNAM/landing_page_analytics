@@ -1,27 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 from get_sheet_content import lista_columna
+from get_landingpage_elements import get_sopa
 import itertools
 import math
 import json
 import os
-
-'''
-Obtiene el contenido de una página a través de requests y BeautifulSoup
-Regresa el contenido completo y analiza el HTML y XML con el módulo html.parser.
-'''
-
-
-def get_sopa(url):
-
-    resultado = requests.get(url)
-    try:
-        resultado.status_code == 200
-        contenido = resultado.content
-    except:
-        raise
-
-    return BeautifulSoup(contenido, "html.parser")
 
 
 '''

@@ -2,7 +2,7 @@ from mooc_unam_spreadsheet import validador
 
 
 ID_HOJADECALCULO = '1dsW2kClGh3E73EhuybthLeTkIoFzscjAr_uXbbrZ1tA'
-RANGO = 'Descargas!A2:G104'
+RANGO = 'Descargas!A2:T104'
 
 
 def lista_columna(columna):
@@ -36,6 +36,6 @@ def lista_columna(columna):
         for row in datostabla:
             lista.append('%s' % (row[columna]))
     except:
-        print("no hay datos")
+        raise
 
     return lista
