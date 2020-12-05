@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from get_sheet_content import lista_columna
-from get_landingpage_elements import get_sopa
+from get_landingpage_elements import get_sopa, get_titulo, coursera_urls
 import itertools
 import math
 import json
@@ -63,7 +63,7 @@ Script principal
 '''
 # TODO: Transformar el script en funciones
 coursera_base_url = "https://www.coursera.org/learn/"
-coursera_slugs = lista_columna(1)
+coursera_urls = coursera_urls()
 coursera_titulos = lista_columna(0)
 
 jsonfile = open("JSON_data/data.json", "w")
@@ -79,7 +79,7 @@ with jsonfile as file:
 # TODO: Escribir una condición para que el programa se ejecute solamente en los comentarios posteriores a la última recolección.
 for i in range(1, 6):
     estrellas = "&star={}".format(i)
-    for slug, titulos in zip(coursera_slugs, coursera_titulos):
+    for slug, titulos in zip(coursera_urls, coursera_titulos):
         url_base = coursera_base_url + slug + "/reviews"
         url_rango = url_base + "?page=1" + estrellas
         try:

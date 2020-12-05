@@ -1,6 +1,5 @@
 import numpy as np
-from get_landingpage_elements import LenTitulo, LenDescripcion, get_recentviews
-from get_sheet_content import lista_columna
+from get_landingpage_elements import LenTitulo, LenDescripcion, get_recentviews, coursera_slugs, get_enrollment
 import matplotlib
 import matplotlib.pyplot as plt
 import dash
@@ -13,8 +12,7 @@ import pandas as pd
 matplotlib.style.use('ggplot')
 
 coursera_base_url = "https://www.coursera.org/learn/"
-coursera_slugs = lista_columna(1)
-courses_enrollment = lista_columna(6)
+coursera_slugs = coursera_slugs()
 
 urls = []
 
@@ -23,6 +21,7 @@ for slugs in coursera_slugs:
 
 print("Finalizada la construcción de urls")
 
+courses_enrollment = []
 t = []
 x = []
 y = []
@@ -30,6 +29,7 @@ z = []
 v = []
 
 for link in urls:
+    courses_enrollment.append(get_enrollment(link))
     t.append(LenTitulo.palabras(link))
     x.append(LenTitulo.caracteres(link))
     z.append(LenDescripcion.caracteres(link))
